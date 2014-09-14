@@ -1,0 +1,135 @@
+html {
+  body {
+    min-width: 100%;
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+    color: #000;
+    background: #000;
+
+    .angle {
+      position: fixed;
+      width: 150px;
+      height: 150px;
+      z-index: 10000;
+
+      &[class*=-top] {
+        border-top: 10px solid #fff;
+        top: 0;
+      }
+      &[class*=-bottom] {
+        border-bottom: 10px solid #fff;
+        bottom: 0;
+      }
+      &[class*=left-] {
+        border-left: 10px solid #fff;
+        left: 0;
+      }
+      &[class*=right-] {
+        border-right: 10px solid #fff;
+        right: 0;
+      }
+    }
+
+    #wrapper {
+      width: 100%;
+      height: 100%;
+
+      #video-block {
+        margin: 25px 15px;
+        text-align: center;
+
+        .video-preview {
+          display: inline-block;
+          vertical-align: top;
+          border: 2px solid #ccc;
+          margin: 0 10px;
+          padding: 15px 25px;
+          font-size: 24px;
+        }
+
+        video {
+          border: 2px dashed #fff;
+          border-radius: 10px;
+          margin: 10px;
+        }
+      }
+    }
+
+    #error-block {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+
+      .error {
+        font-size: 52px;
+        font-weight: 700;
+        text-align: center;
+        position: relative;
+        width: 1000px;
+        height: 200px;
+        top: 50%;
+        left: 50%;
+        margin: -100px 0 0 -500px;
+        color: #fff;
+
+        &:before {
+          left: 2px;
+          text-shadow: -1px 0 red;
+          -webkit-animation: noise 2s infinite linear alternate-reverse;
+          animation: noise 2s infinite linear alternate-reverse;
+        }
+
+        &:after {
+          left: -2px;
+          text-shadow: -1px 0 blue;
+          -webkit-animation: noise-1 1s infinite linear alternate-reverse;
+          animation: noise-1 1s infinite linear alternate-reverse;
+        }
+
+        &:before, &:after {
+          content: attr(data-text);
+          position: absolute;
+          background: #000000;
+          top: 0;
+        }
+      }
+    }
+  }
+}
+
+.clear {
+  clear: both;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.loop(@step: 10, @i: 0) when (@i < (@step+1)) {
+  @random: `Math.ceil(Math.random()*200)`;
+  @percent: percentage(@i * (1/@step));
+
+  @{percent} {
+    clip: rect(@random*(1px), 9999px, @random*(1px), 0);
+  }
+  .loop(@step, (@i + 1));
+}
+
+@-webkit-keyframes noise {
+  .loop(10);
+}
+
+@keyframes noise {
+  .loop(10);
+}
+
+@-webkit-keyframes noise-1 {
+  .loop(20);
+}
+
+@keyframes noise-1 {
+  .loop(20);
+}
